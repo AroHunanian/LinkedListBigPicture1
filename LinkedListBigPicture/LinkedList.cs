@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LinkedListBigPicture
 {
-    internal class LinkedList<T>/* : ICollection<T>*/
+    internal class LinkedList<T> : ICollection<T>,IEnumerable<T>
     {
         public LinkedListNode<T> head { get; private set; }
         public LinkedListNode<T> tail { get; private set; }
@@ -29,9 +29,7 @@ namespace LinkedListBigPicture
         }
         #region ICollection
         public int Count { get; private set; }
-        public bool IsReadonly { get => false; }
-
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => false;
 
         public void Clear()
         {
@@ -104,18 +102,52 @@ namespace LinkedListBigPicture
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            LinkedListNode<T> current = head;
+            LinkedListNode<T> prev = null;
+            while (current != null)
+            {
+                if (current._value.Equals(item))
+                {
+                    if (prev != null)
+                    {
+                        if (tail == current)
+                        {
+                            tail = prev;
+                        }
+                        else
+                        {
+                            prev.next = current.next;
+                        }
+                    }
+                    else
+                    {
+                        head = null;
+                        tail = null;
+                    }
+                    return true;
+                }
+                prev = current;
+                current = current.next;
+            }
+            return false;
         }
 
-        //public IEnumerator<T> GetEnumerator()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public IEnumerator<T> GetEnumerator()
+        {
+            LinkedListNode<T> node = head;
+            while (node != null)
+            {
+                yield return node._value;
 
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //    throw new NotImplementedException();
-        //}
+            }
+            node = node.next;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+        
         #endregion
     }
 }

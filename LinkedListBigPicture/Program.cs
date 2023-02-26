@@ -1,10 +1,11 @@
 ﻿LinkedListBigPicture.LinkedList<int> list = new LinkedListBigPicture.LinkedList<int>();
-int[] arr = new int[] {9,5,6,4,8,9,4,1};
-
-
-list.CopyTo(arr, 2);
-foreach (var item in list)
-{
-    Console.WriteLine(item);
-}
+LinkedList<int> a 
+list.Add(5);
+list.Add(6);
+list.Add(7);
+list.PrintAll(list.head);
+bool isRemoved = list.Remove(5);
+list.PrintAll(list.head);
+Console.WriteLine("list tail");
+list.Print(list.tail);
 
